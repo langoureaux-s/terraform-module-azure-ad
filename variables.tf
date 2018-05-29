@@ -30,10 +30,6 @@ variable "subdomain" {
     description = "The subdomain to use for public FQDN"
 }
 
-variable "os_disk_size" {
-    description = "The OS disk size in Gb"
-    default = "30"
-}
 
 
 variable "active_directory_domain" {
