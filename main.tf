@@ -98,9 +98,9 @@ resource "azurerm_virtual_machine" "vm" {
 // this provisions a single node configuration with no redundancy.
 resource "azurerm_virtual_machine_extension" "create-active-directory-forest" {
   name                 = "create-active-directory-forest"
-  location             = "${azurerm_virtual_machine.domain-controller.location}"
+  location             = "${var.location}"
   resource_group_name  = "${var.rg_name}"
-  virtual_machine_name = "${azurerm_virtual_machine.domain-controller.name}"
+  virtual_machine_name = "${azurerm_virtual_machine.vm.name}"
   publisher            = "Microsoft.Compute"
   type                 = "CustomScriptExtension"
   type_handler_version = "1.9"
@@ -114,9 +114,9 @@ SETTINGS
 
 resource "azurerm_virtual_machine_extension" "run_extra_powershell" {
   name                 = "run_extra_powershell"
-  location             = "${azurerm_virtual_machine.domain-controller.location}"
+  location             = "${var.location}"
   resource_group_name  = "${var.rg_name}"
-  virtual_machine_name = "${azurerm_virtual_machine.domain-controller.name}"
+  virtual_machine_name = "${azurerm_virtual_machine.vm.name}"
   publisher            = "Microsoft.Compute"
   type                 = "CustomScriptExtension"
   type_handler_version = "1.9"
@@ -127,5 +127,5 @@ resource "azurerm_virtual_machine_extension" "run_extra_powershell" {
     }
 SETTINGS
 
-  depends_on = ["azurerm_virtual_machine_extension.create-active-directory-forest", "null_resource.copy_extra_powershell"]
+  depends_on = ["azurerm_virtual_machine_extension.create-active-directory-forest"]
 }
