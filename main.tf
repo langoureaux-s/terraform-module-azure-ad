@@ -8,7 +8,7 @@ provider "azurerm" {}
 
 locals {
   virtual_machine_fqdn = "${var.name}.${var.active_directory_domain}"
-  custom_data_params   = "Param($RemoteHostName = \"${local.virtual_machine_fqdn}\", $ComputerName = \"${local.virtual_machine_name}\")"
+  custom_data_params   = "Param($RemoteHostName = \"${local.virtual_machine_fqdn}\", $ComputerName = \"${var.name}\")"
   custom_data_content  = "${local.custom_data_params} ${file("${path.module}/files/winrm.ps1")}"
   import_command       = "Import-Module ADDSDeployment"
   password_command     = "$password = ConvertTo-SecureString ${var.admin_password} -AsPlainText -Force"
