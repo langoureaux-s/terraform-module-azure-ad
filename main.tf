@@ -123,7 +123,7 @@ resource "azurerm_virtual_machine_extension" "run_extra_powershell" {
 
   settings = <<SETTINGS
     {
-        "commandToExecute": "powershell.exe -command \"${var.extra_powershell}\""
+        "commandToExecute": "powershell.exe -Command \"${var.extra_powershell}\""
     }
 SETTINGS
 
