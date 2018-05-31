@@ -31,7 +31,6 @@ variable "subdomain" {
 }
 
 
-
 variable "active_directory_domain" {
   description = "The name of the Active Directory domain, for example `consoto.local`"
 }
@@ -50,6 +49,7 @@ variable "admin_password" {
 
 variable "extra_powershell" {
   description = "Launch extra powershell script after provisionning AD like users / groups creation"
+  default = ""
 }
 
 variable "tags" {

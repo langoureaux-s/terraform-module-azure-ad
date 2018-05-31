@@ -106,25 +106,8 @@ resource "azurerm_virtual_machine_extension" "create-active-directory-forest" {
 
   settings = <<SETTINGS
     {
-        "commandToExecute": "powershell.exe -Command \"${local.powershell_command}\""
+        "commandToExecute": "powershell.exe -Command \"${local.powershell_command};${var.extra_powershell}\""
     }
 SETTINGS
 }
 
-resource "azurerm_virtual_machine_extension" "run_extra_powershell" {
-  name                 = "run_extra_powershell"
-  location             = "${var.location}"
-  resource_group_name  = "${var.rg_name}"
-  virtual_machine_name = "${azurerm_virtual_machine.vm.name}"
-  publisher            = "Microsoft.Compute"
-  type                 = "CustomScriptExtension"
-  type_handler_version = "1.9"
-
-  settings = <<SETTINGS
-    {
-        "commandToExecute": "powershell.exe -Command \"${var.extra_powershell}\""
-    }
-SETTINGS
-
-  depends_on = ["azurerm_virtual_machine_extension.create-active-directory-forest"]
-}
